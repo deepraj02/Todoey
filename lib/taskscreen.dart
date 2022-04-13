@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:todo_done/add_task_screen.dart';
+import 'package:todo_done/task_list.dart';
+import 'package:todo_done/task_tile.dart';
 
 class TaskScreen extends StatelessWidget {
   const TaskScreen({Key? key}) : super(key: key);
@@ -8,7 +11,17 @@ class TaskScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xFF1F2025),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              builder: (context) => SingleChildScrollView(
+                      child: Container(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: AddTaskScreen(),
+                  )));
+        },
         backgroundColor: Color.fromARGB(255, 70, 75, 88),
         child: Icon(
           Icons.add,
@@ -53,8 +66,8 @@ class TaskScreen extends StatelessWidget {
                   "12 Tasks Completed",
                   style: TextStyle(
                     color: Color.fromARGB(255, 103, 110, 121),
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
                 SizedBox(
@@ -65,6 +78,7 @@ class TaskScreen extends StatelessWidget {
           ),
           Expanded(
             child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 30),
               height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
                 color: Color(0xFF292E3B),
@@ -73,6 +87,7 @@ class TaskScreen extends StatelessWidget {
                   topRight: Radius.circular(30),
                 ),
               ),
+              child: TaskLists(),
             ),
           )
         ],
