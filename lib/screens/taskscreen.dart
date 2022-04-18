@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:todo_done/add_task_screen.dart';
-import 'package:todo_done/task_list.dart';
-import 'package:todo_done/task_tile.dart';
+import 'package:todo_done/screens/add_task_screen.dart';
+import 'package:todo_done/widgets/task_list.dart';
+import 'package:todo_done/widgets/task_tile.dart';
+import '../models/tasks.dart';
 
-class TaskScreen extends StatelessWidget {
-  const TaskScreen({Key? key}) : super(key: key);
+class TaskScreen extends StatefulWidget {
+  @override
+  State<TaskScreen> createState() => _TaskScreenState();
+}
+
+class _TaskScreenState extends State<TaskScreen> {
+    List<Task> tasks = [
+    Task(name: "Create Flutter App"),
+    Task(name: "Maintain NodeJS Server"),
+    Task(name: "Initialize Firebase"),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +52,7 @@ class TaskScreen extends StatelessWidget {
                   child: Icon(
                     Icons.list,
                     size: 35,
-                    color: Color(0xFF72747C),
+                    color: Color.fromARGB(255, 222, 224, 233),
                   ),
                   backgroundColor: Color(0xFF383C46),
                   radius: 30,
@@ -87,7 +97,7 @@ class TaskScreen extends StatelessWidget {
                   topRight: Radius.circular(30),
                 ),
               ),
-              child: TaskLists(),
+              child: TaskList(tasks:tasks),
             ),
           )
         ],
