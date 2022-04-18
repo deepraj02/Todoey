@@ -10,7 +10,7 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
-    List<Task> tasks = [
+  List<Task> tasks = [
     Task(name: "Create Flutter App"),
     Task(name: "Maintain NodeJS Server"),
     Task(name: "Initialize Firebase"),
@@ -23,14 +23,23 @@ class _TaskScreenState extends State<TaskScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              builder: (context) => SingleChildScrollView(
-                      child: Container(
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    child: AddTaskScreen(),
-                  )));
+            context: context,
+            isScrollControlled: true,
+            builder: (context) => SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: AddTaskScreen(
+                  (newTaskTitle) {
+                    tasks.add(
+                      Task(name: newTaskTitle),
+                    );
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ),
+          );
         },
         backgroundColor: Color.fromARGB(255, 70, 75, 88),
         child: Icon(
@@ -73,7 +82,7 @@ class _TaskScreenState extends State<TaskScreen> {
                   height: 7,
                 ),
                 Text(
-                  "12 Tasks Completed",
+                  "${tasks.length} Tasks Left",
                   style: TextStyle(
                     color: Color.fromARGB(255, 103, 110, 121),
                     fontSize: 17,
@@ -97,7 +106,7 @@ class _TaskScreenState extends State<TaskScreen> {
                   topRight: Radius.circular(30),
                 ),
               ),
-              child: TaskList(tasks:tasks),
+              child: TaskList(tasks: tasks),
             ),
           )
         ],
