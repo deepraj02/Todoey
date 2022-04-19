@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:todo_done/models/tasks.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_done/models/task_data.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  Function addTaskCallback;
-  AddTaskScreen(this.addTaskCallback);
   @override
   Widget build(BuildContext context) {
-    late String newTextTitle;
+    late String newTaskTitle;
     return Container(
       color: Color(0xFF13151b),
       child: Container(
@@ -38,7 +39,7 @@ class AddTaskScreen extends StatelessWidget {
                 fontSize: 19,
               ),
               onChanged: (newText) {
-                newTextTitle = newText;
+                newTaskTitle = newText;
               },
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
@@ -63,7 +64,9 @@ class AddTaskScreen extends StatelessWidget {
               constraints: BoxConstraints.tightFor(height: 70),
               child: ElevatedButton(
                 onPressed: () {
-                  addTaskCallback(newTextTitle);
+                  Provider.of<TaskData>(context, listen: false)
+                      .addTask(newTaskTitle);
+                  Navigator.pop(context);
                 },
                 child: Text(
                   'Add Task',
@@ -73,7 +76,7 @@ class AddTaskScreen extends StatelessWidget {
                 ),
                 style: ElevatedButton.styleFrom(
                   primary: Color(0xFF4D3985),
-                  onPrimary: Color.fromARGB(255, 212, 207, 191),
+                  onPrimary: Color.fromARGB(255, 248, 246, 238),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                     // <-- Radius
