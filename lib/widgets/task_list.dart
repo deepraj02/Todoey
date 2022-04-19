@@ -20,6 +20,9 @@ class TaskList extends StatelessWidget {
                 Provider.of<TaskData>(context).tasks[index].toggleDone();
               }); */
               },
+              longpressCallback: () {
+                taskData.deleteTask(task);
+              },
             );
           },
           itemCount: taskData.taskCount,
