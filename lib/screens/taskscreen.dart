@@ -3,6 +3,8 @@ import 'package:todo_done/screens/add_task_screen.dart';
 import 'package:todo_done/widgets/task_list.dart';
 import 'package:todo_done/widgets/task_tile.dart';
 import '../models/tasks.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_done/models/task_data.dart';
 
 class TaskScreen extends StatefulWidget {
   @override
@@ -10,12 +12,6 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
-  List<Task> tasks = [
-    Task(name: "Create Flutter App"),
-    Task(name: "Maintain NodeJS Server"),
-    Task(name: "Initialize Firebase"),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,9 +27,9 @@ class _TaskScreenState extends State<TaskScreen> {
                     bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: AddTaskScreen(
                   (newTaskTitle) {
-                    tasks.add(
-                      Task(name: newTaskTitle),
-                    );
+                    Provider.of<TaskData>(context).tasks.add(
+                          Task(name: newTaskTitle),
+                        );
                     Navigator.pop(context);
                   },
                 ),
@@ -82,7 +78,7 @@ class _TaskScreenState extends State<TaskScreen> {
                   height: 7,
                 ),
                 Text(
-                  "${tasks.length} Tasks Left",
+                  "${Provider.of<TaskData>(context).taskCount} Tasks Left",
                   style: TextStyle(
                     color: Color.fromARGB(255, 103, 110, 121),
                     fontSize: 17,
@@ -106,7 +102,7 @@ class _TaskScreenState extends State<TaskScreen> {
                   topRight: Radius.circular(30),
                 ),
               ),
-              child: TaskList(tasks: tasks),
+              child: TaskList(),
             ),
           )
         ],
